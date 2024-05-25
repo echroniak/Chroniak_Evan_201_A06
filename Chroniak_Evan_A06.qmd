@@ -159,8 +159,8 @@ Use the list created in Part c and an appropriate apply function to round each v
 Store the output as a vector and print the results.
 
 ```{r}
-ppg_unlisted <- unlist(ppg_list)
-
+ppg_rounded <- sapply(ppg_list, round, 2) #use sapply to return vector output 
+print(ppg_rounded) #print vector
 ```
 
 
@@ -182,6 +182,18 @@ Hint: use `MARGIN = 1:2` to apply the function to each value instead of only a r
 
 ```{r}
 
+num_round <- function(x){ #define custom round function
+  if(x < 100){
+    return(round(x, -1)) #round to nearest 10
+  } else if(x < 1000){
+    return(round(x, -2)) #round to nearest 100
+  }else{
+    return(round(x, -3))
+  } 
+}
+
+mat_rand_rounded <- apply(mat_rand, MARGIN = 1:2, num_round)
+mat_rand_rounded
 ```
 
 
