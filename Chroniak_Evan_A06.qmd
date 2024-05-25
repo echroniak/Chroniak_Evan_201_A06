@@ -266,6 +266,15 @@ Example: The number 312 would return 6 (3 + 1 + 2)
 Run your function with 935068.
 
 ```{r}
+digit_sum <- function(x){
+  if(x < 10){ #base case: if x is less than 10 is will only have 1 digit to sum
+    return(x)
+  }else{
+    return(x %% 10 + digit_sum(x %/% 10)) #recursive case. Add the last digit of the number (i.e the remainder if dividing x by 10) to the sum of the remaining digits. x %/% 10 divides x by 10 and ignores the quotient, essentially cutting off the remainder. Doing these divisions recursively trims the number down until there is only a single digit remaining. this will be the base case. 
+  }
+}
 
+test<- digit_sum(935068)
+test
 ```
 

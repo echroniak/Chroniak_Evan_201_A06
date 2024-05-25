@@ -3415,12 +3415,12 @@ $SO
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>mat_rand_rounded</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3] [,4] [,5]
-[1,] 1000   10 1000 1000  400
-[2,]  300 2000   60  600  500
-[3,]  800  500   40 2000  200
-[4,] 1000 1000 1000   30   30
-[5,] 1000   20  900  800   90
-[6,]   90   20   40 2000 1000</code></pre>
+[1,]   80 1000   40   40 2000
+[2,]  900  400 1000   50   60
+[3,]  300 1000  800 1000 1000
+[4,] 1000  400   80   20   60
+[5,]   90 1000 2000  800 1000
+[6,]  700   40  800 2000  100</code></pre>
 </div>
 </div>
 </section>
@@ -3467,6 +3467,21 @@ $SO
 <p>Write a recursive function that calculates the sum of the digits in a number.</p>
 <p>Example: The number 312 would return 6 (3 + 1 + 2)</p>
 <p>Run your function with 935068.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>digit_sum <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(x <span class="sc">&lt;</span> <span class="dv">10</span>){ <span class="co">#base case: if x is less than 10 is will only have 1 digit to sum</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(x)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(x <span class="sc">%%</span> <span class="dv">10</span> <span class="sc">+</span> <span class="fu">digit_sum</span>(x <span class="sc">%/%</span> <span class="dv">10</span>)) <span class="co">#recursive case. Add the last digit of the number (i.e the remainder if dividing x by 10) to the sum of the remaining digits. x %/% 10 divides x by 10 and ignores the quotient, essentially cutting off the remainder. Doing these divisions recursively trims the number down until there is only a single digit remaining. this will be the base case. </span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>test<span class="ot">&lt;-</span> <span class="fu">digit_sum</span>(<span class="dv">935068</span>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>test</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 31</code></pre>
+</div>
+</div>
 </section>
 </section>
 
