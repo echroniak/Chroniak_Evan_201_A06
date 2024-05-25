@@ -56,7 +56,7 @@ To get full credit for this Question you must:
 
 ## Screenshot/image of RStudio
 
-![]()
+![](git_setup_pic.png)
 
 :::
 
@@ -102,7 +102,11 @@ Extract the value `8162` (LeBron James points) in 2 different ways:
 - using names
 
 ```{r}
+#with indexing
+player_info[[2]][[4]] #second element of large list, then 4th element of the inner list
 
+#with names
+player_info$LJ$points
 ```
 
 
@@ -113,7 +117,12 @@ Add a new named element to the end of each player's list called `height`. The he
 Print the `player_info` list to prove you were successful.
 
 ```{r}
+heights <- list(MJ = 78, LJ = 81, KB = 78, KA = 86, SO = 85) #create a list with player heights
+for(player in names(player_info)){ #iterate through each player sublist
+  player_info[[player]]$height <- heights[[player]] #access the sublist of the current iterated player and define a new height element with the value from the heights list
+}
 
+player_info
 ```
 
 
@@ -132,7 +141,14 @@ Hint: initialize an empty list
 Note: this must still run correctly even if the values were to change or if another player were added to the list or if the player order changed.
 
 ```{r}
+ppg_list <- list()
 
+for(player in names(player_info)){ #iterate through each named player
+  ppg = player_info[[player]]$points / player_info[[player]]$games_played #calculate points per game
+  ppg_list[[player]] <- ppg #add each ppg value to the ppg_list with the element named by the player's initials
+}
+
+ppg_list
 ```
 
 
@@ -143,6 +159,7 @@ Use the list created in Part c and an appropriate apply function to round each v
 Store the output as a vector and print the results.
 
 ```{r}
+ppg_unlisted <- unlist(ppg_list)
 
 ```
 
