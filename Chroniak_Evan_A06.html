@@ -3415,12 +3415,12 @@ $SO
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>mat_rand_rounded</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3] [,4] [,5]
-[1,]   80 1000   40   40 2000
-[2,]  900  400 1000   50   60
-[3,]  300 1000  800 1000 1000
-[4,] 1000  400   80   20   60
-[5,]   90 1000 2000  800 1000
-[6,]  700   40  800 2000  100</code></pre>
+[1,] 1000  800   50 2000  300
+[2,] 2000 1000  600  100   70
+[3,]  900 1000   40 1000  200
+[4,]  800 2000 2000  300   10
+[5,]   80 2000  100  700   80
+[6,]   20   30  100 1000   40</code></pre>
 </div>
 </div>
 </section>
@@ -3440,6 +3440,49 @@ $SO
 <section id="part-a-2-points" class="level3">
 <h3 class="anchored" data-anchor-id="part-a-2-points">Part a (2 points)</h3>
 <p>Calculate the average temperature for each month across the whole data frame (using the data for all three states together).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>month_columns <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;jan&#39;</span>, <span class="st">&#39;feb&#39;</span>, <span class="st">&#39;mar&#39;</span>, <span class="st">&#39;apr&#39;</span>, <span class="st">&#39;may&#39;</span>, <span class="st">&#39;jun&#39;</span>, <span class="st">&#39;jul&#39;</span>, <span class="st">&#39;aug&#39;</span>, <span class="st">&#39;sep&#39;</span>, <span class="st">&#39;oct&#39;</span>, <span class="st">&#39;nov&#39;</span>, <span class="st">&#39;dec&#39;</span>) <span class="co">#create a vector of only the month columns</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>monthly_temps <span class="ot">&lt;-</span> <span class="fu">lapply</span>(max_temps[month_columns], mean) <span class="co">#use lapply to calculate the mean of only the selected month columns</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>monthly_temps</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$jan
+[1] 38.89206
+
+$feb
+[1] 41.93598
+
+$mar
+[1] 50.73148
+
+$apr
+[1] 61.35608
+
+$may
+[1] 71.26111
+
+$jun
+[1] 79.95503
+
+$jul
+[1] 84.1746
+
+$aug
+[1] 82.23571
+
+$sep
+[1] 75.92857
+
+$oct
+[1] 64.56296
+
+$nov
+[1] 51.49921
+
+$dec
+[1] 41.11508</code></pre>
+</div>
+</div>
 </section>
 <section id="part-b-2-points" class="level3">
 <h3 class="anchored" data-anchor-id="part-b-2-points">Part b (2 points)</h3>
@@ -3450,6 +3493,11 @@ $SO
 <li>Slice the data frame to only include the state of Virginia (VA).</li>
 </ul>
 <p>No need to print any output here.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>temps_CO <span class="ot">&lt;-</span> max_temps[max_temps<span class="sc">$</span>state <span class="sc">==</span> <span class="st">&quot;CO&quot;</span>, ] <span class="co">#slice to include only rows with &quot;CO&quot; label, include all columns</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>temps_OH <span class="ot">&lt;-</span> max_temps[max_temps<span class="sc">$</span>state <span class="sc">==</span> <span class="st">&quot;OH&quot;</span>, ] <span class="co">#ditto for OH and VA</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>temps_VA <span class="ot">&lt;-</span> max_temps[max_temps<span class="sc">$</span>state <span class="sc">==</span> <span class="st">&quot;VA&quot;</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="part-c-5-points" class="level3">
 <h3 class="anchored" data-anchor-id="part-c-5-points">Part c (5 points)</h3>
@@ -3460,6 +3508,27 @@ $SO
 <p>Example (this is NOT the answer just an example of what goes in the {}):</p>
 <p>“The maximum median annual temperature of 68.25 occurred in 2017 and the minimum median annual temperature of 57.15 occurred in 1907.”</p>
 <p>Note: This code should still run successfully even if the numbers were to change.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create a vector containg the median temperatures of all years. slice to exclude the &#39;year&#39; and &#39;state&#39; columns. also set na.rm to TRUE to ignore missing values</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>median_temps <span class="ot">&lt;-</span> <span class="fu">apply</span>(temps_CO[ , <span class="sc">!</span><span class="fu">names</span>(temps_CO) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;state&quot;</span>)], <span class="dv">1</span>, median, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#acquire the index of the years for the max and min median temps</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>max_index <span class="ot">&lt;-</span> <span class="fu">which.max</span>(median_temps)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>min_index<span class="ot">&lt;-</span> <span class="fu">which.min</span>(median_temps)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">#define max and min values and years</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>max_median <span class="ot">&lt;-</span> median_temps[[max_index]] <span class="co">#highest median temp</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>max_year <span class="ot">&lt;-</span> temps_CO<span class="sc">$</span>year[[max_index]] <span class="co">#year of highest median temp</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>min_median <span class="ot">&lt;-</span> median_temps[[min_index]] <span class="co">#lowest median temp</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>min_year <span class="ot">&lt;-</span> temps_CO<span class="sc">$</span>year[min_index] <span class="co">#year of lowest median temp</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co">#print statement</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">&quot;The maximum median annual temperature of &quot;</span>, max_median, <span class="st">&quot; occurred in &quot;</span>, max_year, <span class="st">&quot; and the minimum median annual temperature of &quot;</span>, min_median, <span class="st">&quot; occurred in &quot;</span>, min_year, <span class="st">&quot;.&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] &quot;The maximum median annual temperature of 63.95 occurred in 1934 and the minimum median annual temperature of 50.85 occurred in 1984.&quot;</code></pre>
+</div>
+</div>
 </section>
 </section>
 <section id="question-5-5-points" class="level2">
@@ -3468,16 +3537,16 @@ $SO
 <p>Example: The number 312 would return 6 (3 + 1 + 2)</p>
 <p>Run your function with 935068.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>digit_sum <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(x <span class="sc">&lt;</span> <span class="dv">10</span>){ <span class="co">#base case: if x is less than 10 is will only have 1 digit to sum</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(x)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(x <span class="sc">%%</span> <span class="dv">10</span> <span class="sc">+</span> <span class="fu">digit_sum</span>(x <span class="sc">%/%</span> <span class="dv">10</span>)) <span class="co">#recursive case. Add the last digit of the number (i.e the remainder if dividing x by 10) to the sum of the remaining digits. x %/% 10 divides x by 10 and ignores the quotient, essentially cutting off the remainder. Doing these divisions recursively trims the number down until there is only a single digit remaining. this will be the base case. </span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>test<span class="ot">&lt;-</span> <span class="fu">digit_sum</span>(<span class="dv">935068</span>)</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>test</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>digit_sum <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(x <span class="sc">&lt;</span> <span class="dv">10</span>){ <span class="co">#base case: if x is less than 10 is will only have 1 digit to sum</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(x)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(x <span class="sc">%%</span> <span class="dv">10</span> <span class="sc">+</span> <span class="fu">digit_sum</span>(x <span class="sc">%/%</span> <span class="dv">10</span>)) <span class="co">#recursive case. Add the last digit of the number (i.e the remainder if dividing x by 10) to the sum of the remaining digits. x %/% 10 divides x by 10 and ignores the quotient, essentially cutting off the remainder. Doing these divisions recursively trims the number down until there is only a single digit remaining. this will be the base case. </span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>test<span class="ot">&lt;-</span> <span class="fu">digit_sum</span>(<span class="dv">935068</span>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>test</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 31</code></pre>
 </div>
